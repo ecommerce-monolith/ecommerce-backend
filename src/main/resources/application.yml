@@ -1,0 +1,43 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: ecommerce-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecommerce_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: EcommerceHikariCP
+      maximum-pool-size: 60
+      minimum-idle: 20
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 900000
+      leak-detection-threshold: 10000
+      auto-commit: false
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        connection:
+          provider_disables_autocommit: true
+
+  liquibase:
+    change-log: classpath:changelog/changelog-master.xml
+    enabled: true
+
+app:
+  security:
+    authentication:
+      jwt:
+        base64-secret: HPEQnZmHLmwAZ0bsQKu3LpOZjr/6AWMUdXl9TE9u0LFWti0oUcrMWmxVwANO6fjgzhY7c2JJ+5DMjEl4caAqMw==
+        token-validity-in-seconds: 604800 # 1 week
+        token-validity-in-seconds-for-remember-me: 604800

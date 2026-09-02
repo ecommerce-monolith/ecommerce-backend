@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="20260902140100-create-product-sku" author="payment-system">
+        <sql>
+            CREATE TABLE products
+            (
+                id                 BINARY(16) PRIMARY KEY,
+                name               VARCHAR(255),
+                description        TEXT,
+                category_id        BINARY(16),
+                brand_id           BINARY(16),
+                status             VARCHAR(50),
+                created_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by         VARCHAR(255),
+                last_modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                last_modified_by   VARCHAR(255)
+            );
+
+            CREATE TABLE skus
+            (
+                id                 BINARY(16) PRIMARY KEY,
+                product_id         BINARY(16),
+                sku_code           VARCHAR(100) UNIQUE,
+                barcode            VARCHAR(100),
+                price              DECIMAL(15, 2),
+                status             VARCHAR(50),
+                created_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by         VARCHAR(255),
+                last_modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                last_modified_by   VARCHAR(255),
+                FOREIGN KEY (product_id) REFERENCES products (id)
+            );
+
+            CREATE TABLE attributes
+            (
+                id                 BINARY(16) PRIMARY KEY,
+                name               VARCHAR(100),
+                created_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by         VARCHAR(255),
+                last_modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                last_modified_by   VARCHAR(255)
+            );
+
+            CREATE TABLE attribute_values
+            (
+                id                 BINARY(16) PRIMARY KEY,
+                attribute_id       BINARY(16),
+                value              VARCHAR(100),
+                created_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by         VARCHAR(255),
+                last_modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                last_modified_by   VARCHAR(255),
+                FOREIGN KEY (attribute_id) REFERENCES attributes (id)
+            );
+
+            CREATE TABLE sku_attribute_values
+            (
+                sku_id             BINARY(16),
+                attribute_value_id BINARY(16),
+                PRIMARY KEY (sku_id, attribute_value_id),
+                FOREIGN KEY (sku_id) REFERENCES skus (id),
+                created_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by         VARCHAR(255),
+                last_modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                last_modified_by   VARCHAR(255),
+                FOREIGN KEY (attribute_value_id) REFERENCES attribute_values (id)
+            );
+
+            CREATE TABLE inventories
+            (
+                id                 BINARY(16) PRIMARY KEY,
+                sku_id             BINARY(16),
+                warehouse_id       BINARY(16),
+                quantity           INT,
+                reserved_quantity  INT,
+                created_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by         VARCHAR(255),
+                last_modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                last_modified_by   VARCHAR(255),
+                FOREIGN KEY (sku_id) REFERENCES skus (id)
+            );
+
+            CREATE TABLE sku_images
+            (
+                id                 BINARY(16) PRIMARY KEY,
+                sku_id             BINARY(16),
+                url                VARCHAR(500),
+                sort_order         INT,
+                created_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by         VARCHAR(255),
+                last_modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                last_modified_by   VARCHAR(255)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>
