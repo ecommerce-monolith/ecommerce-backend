@@ -2,10 +2,7 @@ package com.huyhn.ecommerce_backend.module.product.entity;
 
 import com.huyhn.ecommerce_backend.shared.entity.AbstractAuditingEntity;
 import com.huyhn.ecommerce_backend.shared.uuidv7.GeneratedUuidV7;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,4 +35,8 @@ public class Sku extends AbstractAuditingEntity {
 
     @Column(name = "status")
     private String status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private Product product;
 }
