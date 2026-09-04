@@ -1,14 +1,13 @@
 package com.huyhn.ecommerce_backend.module.product.response;
 
-import com.huyhn.ecommerce_backend.module.product.dto.ProductItemDTO;
+import com.huyhn.ecommerce_backend.module.product.dto.ProductItem;
+import com.huyhn.ecommerce_backend.shared.response.PageResponse;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
-public record ProductPageResponse(
-        List<ProductItemDTO> products,
-        long totalElements,
-        long totalPages,
-        int currentPage,
-        int pageSize
-) {
+@Getter
+@SuperBuilder
+@NoArgsConstructor
+public class ProductPageResponse extends PageResponse<ProductItem> {
 }

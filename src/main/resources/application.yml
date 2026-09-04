@@ -1,6 +1,12 @@
 server:
   port: 8888
 
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.huyhn.ecommerce_backend: DEBUG
+
 spring:
   application:
     name: ecommerce-backend

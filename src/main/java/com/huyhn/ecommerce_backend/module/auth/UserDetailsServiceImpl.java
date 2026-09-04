@@ -1,5 +1,6 @@
 package com.huyhn.ecommerce_backend.module.auth;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
+    @NonNull
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(final String email) {
         log.debug("Authenticating {}", email);

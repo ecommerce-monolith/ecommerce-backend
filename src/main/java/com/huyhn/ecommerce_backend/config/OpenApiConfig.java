@@ -18,8 +18,8 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Millions Transaction API")
-                        .description("Payment processing API")
+                        .title("Ecommerce System API")
+                        .description("Ecommerce System API")
                         .version("1.0.0"))
                 .servers(List.of(new Server().url("http://localhost:8888")))
                 .components(new Components()
