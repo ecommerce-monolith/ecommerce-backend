@@ -1,20 +1,29 @@
 package com.huyhn.ecommerce_backend.module.product.entity;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 import com.huyhn.ecommerce_backend.shared.entity.AbstractAuditingEntity;
 import com.huyhn.ecommerce_backend.shared.uuidv7.GeneratedUuidV7;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.math.BigDecimal;
-import java.util.UUID;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "skus")
 @Getter
 @Setter
 @NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class Sku extends AbstractAuditingEntity {
     @Id
     @GeneratedUuidV7

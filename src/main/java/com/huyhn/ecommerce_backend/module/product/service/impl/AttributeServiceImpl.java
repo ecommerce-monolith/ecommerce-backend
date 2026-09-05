@@ -1,14 +1,14 @@
 package com.huyhn.ecommerce_backend.module.product.service.impl;
 
-import com.huyhn.ecommerce_backend.module.product.dto.AttributeDTO;
 import com.huyhn.ecommerce_backend.module.product.entity.Attribute;
 import com.huyhn.ecommerce_backend.module.product.entity.AttributeValue;
 import com.huyhn.ecommerce_backend.module.product.mapper.AttributeMapper;
 import com.huyhn.ecommerce_backend.module.product.repository.AttributeRepository;
 import com.huyhn.ecommerce_backend.module.product.repository.AttributeValueRepository;
-import com.huyhn.ecommerce_backend.module.product.request.AttributePageRequest;
+import com.huyhn.ecommerce_backend.module.product.request.AttributeFilterRequest;
 import com.huyhn.ecommerce_backend.module.product.request.CreateAttributeRequest;
 import com.huyhn.ecommerce_backend.module.product.response.AttributeCreatedResponse;
+import com.huyhn.ecommerce_backend.module.product.response.AttributePageResponse;
 import com.huyhn.ecommerce_backend.module.product.service.AttributeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,14 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public Page<AttributeDTO> getPage(AttributePageRequest request, Pageable pageable) {
-        return attributeRepository.findAll(pageable).map(attributeMapper::toDto);
+    public AttributePageResponse getPage(AttributeFilterRequest request, Pageable pageable) {
+        Page<Attribute> page = attributeRepository.findAll(pageable);
+        return AttributePageResponse.builder()
+                .items(page.getContent().stream().map(attributeMapper::toDto).toList())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .currentPage(page.getNumber())
+                .pageSize(page.getSize())
+                .build();
     }
 }

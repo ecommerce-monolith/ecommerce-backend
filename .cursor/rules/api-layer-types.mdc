@@ -1,0 +1,56 @@
+---
+description: Request / Response / DTO conventions between controller and service
+globs: "**/module/**/{controller,service,request,response,dto}/**/*.java"
+alwaysApply: false
+---
+
+# API layer types (controller → service)
+
+Follow `ProductService` as the reference. Keep controller thin; service owns the use-case boundary.
+
+## Roles
+
+| Type | Package | Role |
+|------|---------|------|
+| `*Request` | `...request` | Input for a use-case (validation annotations). Create/Update/Filter are separate types. |
+| `*Response` | `...response` | Output shaped for a specific endpoint/use-case (page wrapper, created id, etc.). |
+| `*DTO` | `...dto` | Reusable read/nested shape (list item, nested objects inside Request/Response). |
+| Entity | `...entity` | Persistence only — never expose from controller or as service return to API. |
+
+## Rules
+
+- **HTTP in** → `*Request`. Do not use `*DTO` as create/update body when it carries read-only/audit fields.
+- **HTTP out** → `*Response` for use-case-specific payloads; nest `*DTO` for items/details when the shape is reusable.
+- **List/page** → `*PageResponse extends PageResponse<*DTO>` (or equivalent). Never return a single `*DTO` from `getPage`.
+- **Create** → `Create*Request` in, prefer `*CreatedResponse` or the read `*DTO` out.
+- **Update** → `Update*Request` (or path id + request); do not reuse create request if fields differ.
+- **Filter** → `*FilterRequest` / `*PageRequest` for query params.
+- MapStruct (or mappers) convert Entity ↔ DTO/Request/Response inside the service layer.
+
+## Good
+
+```java
+WarehousePageResponse getPage(WarehouseFilterRequest request, Pageable pageable);
+WarehouseDTO getById(UUID id);
+WarehouseDTO create(CreateWarehouseRequest request);
+WarehouseDTO update(UUID id, UpdateWarehouseRequest request);
+void delete(UUID id);
+```
+
+```java
+// Page response wraps DTO items
+public class WarehousePageResponse extends PageResponse<WarehouseDTO> {}
+```
+
+## Bad
+
+```java
+// DTO as create/update body when it includes id/audit fields clients must not send
+WarehouseDTO create(WarehouseDTO warehouse);
+
+// getPage returning a single DTO
+WarehouseDTO getPage(WarehouseFilterRequest request, Pageable pageable);
+
+// Entity leaked to controller
+Warehouse create(...);
+```

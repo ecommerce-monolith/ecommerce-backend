@@ -1,10 +1,11 @@
 package com.huyhn.ecommerce_backend.module.auth;
 
-import com.huyhn.ecommerce_backend.module.auth.request.LoginRequest;
-import com.huyhn.ecommerce_backend.module.auth.request.RegisterRequest;
-import com.huyhn.ecommerce_backend.module.auth.response.TokenResponse;
-import com.huyhn.ecommerce_backend.module.auth.response.UserResponse;
-import lombok.RequiredArgsConstructor;
+import static com.huyhn.ecommerce_backend.shared.utils.SecurityUtils.*;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,12 +19,12 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.stream.Collectors;
+import com.huyhn.ecommerce_backend.module.auth.request.LoginRequest;
+import com.huyhn.ecommerce_backend.module.auth.request.RegisterRequest;
+import com.huyhn.ecommerce_backend.module.auth.response.TokenResponse;
+import com.huyhn.ecommerce_backend.module.auth.response.UserResponse;
 
-import static com.huyhn.ecommerce_backend.shared.utils.SecurityUtils.AUTHORITIES_KEY;
-import static com.huyhn.ecommerce_backend.shared.utils.SecurityUtils.JWT_ALGORITHM;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

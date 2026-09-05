@@ -1,6 +1,6 @@
 package com.huyhn.ecommerce_backend.module.product.controller;
 
-import com.huyhn.ecommerce_backend.module.product.request.AttributePageRequest;
+import com.huyhn.ecommerce_backend.module.product.request.AttributeFilterRequest;
 import com.huyhn.ecommerce_backend.module.product.request.CreateAttributeRequest;
 import com.huyhn.ecommerce_backend.module.product.response.AttributeCreatedResponse;
 import com.huyhn.ecommerce_backend.module.product.response.AttributePageResponse;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface AttributeController {
     @Operation(summary = "Get attribute page", description = "Retrieve a page of attributes")
     @GetMapping
-    ResponseEntity<AttributePageResponse> getPage(@ParameterObject AttributePageRequest request, @ParameterObject Pageable pageable);
+    ResponseEntity<AttributePageResponse> getPage(@ParameterObject AttributeFilterRequest request, @ParameterObject Pageable pageable);
 
     @Operation(summary = "Create attribute", description = "Create a new attribute with its values")
     @PostMapping
