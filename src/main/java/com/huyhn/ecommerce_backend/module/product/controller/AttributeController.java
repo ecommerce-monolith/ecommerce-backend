@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Tag(name = "Attribute", description = "Attribute API")
 @RequestMapping("/api/v1/admin/attributes")
 public interface AttributeController {
-    @Operation(summary = "Get attribute page", description = "Retrieve a page of attributes")
-    @GetMapping
-    ResponseEntity<AttributePageResponse> getPage(@ParameterObject AttributeFilterRequest request, @ParameterObject Pageable pageable);
 
-    @Operation(summary = "Create attribute", description = "Create a new attribute with its values")
+    @Operation(summary = "Get attribute page")
+    @GetMapping
+    ResponseEntity<AttributePageResponse> getPage(@ParameterObject AttributeFilterRequest request,
+            @ParameterObject Pageable pageable);
+
+    @Operation(summary = "Create attribute")
     @PostMapping
     ResponseEntity<AttributeCreatedResponse> create(@RequestBody CreateAttributeRequest request);
 }

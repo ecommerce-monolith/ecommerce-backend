@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="20260906005800-create-warehouse" author="huyhn">
+        <sql>
+            CREATE TABLE warehouses (
+                id                 BINARY(16) PRIMARY KEY,
+                name               VARCHAR(255) NOT NULL,
+                address            TEXT NOT NULL,
+                city               VARCHAR(255) NOT NULL,
+                state              VARCHAR(255) NOT NULL,
+                created_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by         VARCHAR(255),
+                last_modified_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                last_modified_by   VARCHAR(255)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

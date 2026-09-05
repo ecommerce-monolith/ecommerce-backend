@@ -5,4 +5,5 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
     <include file="/changelog/20260901165000-create-user-and-authority.xml"/>
     <include file="/changelog/20260902140100-create-product-sku.xml"/>
+    <include file="/changelog/20260906005800-create-warehouse.xml"/>
 </databaseChangeLog>
