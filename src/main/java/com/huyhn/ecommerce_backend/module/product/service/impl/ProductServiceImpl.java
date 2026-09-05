@@ -1,6 +1,5 @@
 package com.huyhn.ecommerce_backend.module.product.service.impl;
 
-import com.huyhn.ecommerce_backend.module.product.dto.ProductItem;
 import com.huyhn.ecommerce_backend.module.product.entity.Product;
 import com.huyhn.ecommerce_backend.module.product.mapper.CreateProductMapper;
 import com.huyhn.ecommerce_backend.module.product.mapper.ProductItemMapper;

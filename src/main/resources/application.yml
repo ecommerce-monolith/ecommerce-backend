@@ -4,8 +4,8 @@ server:
 logging:
   level:
     root: INFO
-    org.springframework.web: INFO
-    com.huyhn.ecommerce_backend: DEBUG
+    '[org.springframework.web]': INFO
+    '[com.huyhn.ecommerce_backend]': DEBUG
 
 spring:
   application:
@@ -32,9 +32,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-        format_sql: true
+        '[format_sql]': true
         connection:
-          provider_disables_autocommit: true
+          '[provider_disables_autocommit]': true
 
   liquibase:
     change-log: classpath:changelog/changelog-master.xml

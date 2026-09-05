@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 
-public record SkuItem(
+public record SkuDTO(
         @NotNull(message = "SKU name is required")
         String name,
 
@@ -19,6 +19,6 @@ public record SkuItem(
         @Size(max = 500, message = "Description must not exceed 500 characters")
         String description,
 
-        List<AttributeValueItem> attributeValues
+        List<AttributeValueDTO> attributeValues
 ) {
 }

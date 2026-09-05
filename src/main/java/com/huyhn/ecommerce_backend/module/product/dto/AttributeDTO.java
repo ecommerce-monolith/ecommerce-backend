@@ -11,5 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class AttributeDTO {
     private String name;
-    private List<AttributeValueItem> values;
+    private List<AttributeValueDTO> values;
 }
