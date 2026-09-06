@@ -34,10 +34,6 @@ public class User extends AbstractAuditingEntity {
     private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_authority",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_name")
-    )
+    @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_name"))
     private Set<Authority> authorities;
 }
