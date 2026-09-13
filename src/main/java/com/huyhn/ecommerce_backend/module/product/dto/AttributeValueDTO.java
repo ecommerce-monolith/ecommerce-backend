@@ -4,6 +4,10 @@ import java.util.UUID;
 
 public record AttributeValueDTO(
         UUID id,
-        String name
+        String name,
+        String attributeName
 ) {
+    public AttributeValueDTO(UUID id, String name) {
+        this(id, name, null);
+    }
 }

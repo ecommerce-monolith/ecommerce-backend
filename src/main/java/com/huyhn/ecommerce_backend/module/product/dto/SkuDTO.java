@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 public record SkuDTO(
+        UUID id,
+
         @NotNull(message = "SKU name is required")
         String name,
 
